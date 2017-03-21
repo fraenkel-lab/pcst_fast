@@ -14,7 +14,6 @@ OBJDIR = obj
 
 clean:
 	rm -rf $(OBJDIR)
-	rm -f pcst_fast_wrap.cxx
 	rm -f _pcst_fast.so
 	rm -f pcst_fast.py
 	rm -f pcst_fast.pyc
@@ -38,7 +37,7 @@ PCST_FAST_TEST_OBJS = gtest-all.o gtest_main.o
 pcst_fast_test: $(PCST_FAST_TEST_OBJS:%=$(OBJDIR)/%) $(SRCDIR)/pcst_fast_test.cc $(SRCDIR)/pcst_fast.cc
 	$(CXX) $(CXXFLAGS) -I $(GTESTDIR)/include -c -o $(OBJDIR)/pcst_fast.o $(SRCDIR)/pcst_fast.cc
 	$(CXX) $(CXXFLAGS) -I $(GTESTDIR)/include -c -o $(OBJDIR)/pcst_fast_test.o $(SRCDIR)/pcst_fast_test.cc
-	$(CXX) $(CXXFLAGS) -o $@ $(PCST_FAST_TEST_OBJS:%=$(OBJDIR)/%) $(OBJDIR)/pcst_fast_test.o $(OBJDIR)/pcst_fast.o -pthread
+	$(CXX) $(CXXFLAGS) -o $@ $(PCST_FAST_TEST_OBJS:%=$(OBJDIR)/%) $(OBJDIR)/pcst_fast_test.o $(OBJDIR)/pcst_fast.o
 
 run_pcst_fast_test: pcst_fast_test
 	./pcst_fast_test
