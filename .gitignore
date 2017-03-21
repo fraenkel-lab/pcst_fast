@@ -1,0 +1,17 @@
+*.swp
+*.swo
+*.swm
+*.swn
+*.mexa64
+*.mexmaci64
+.deps
+obj
+pcst_fast_test
+pcst_fast.py*
+src/main_pcst
+src/main_cluster_grid
+.DS_Store
+pcst_fast.so
+pcst_fast.so.dSYM
+.cache
+__pycache__
