@@ -4,7 +4,7 @@ pcsf_fast
 A library for solving the **prize-collecting Steiner forest (PCSF)** problem on graphs.
 The underlying algorithm is based on the classical Goemans-Williamson approximation scheme.
 Our variant provably runs in nearly-linear time and has a factor-2 approximation guarantee.
-The following paper contains details about the algorithms:
+The following paper contains details about the algorithm:
 
 > [A Nearly-Linear Time Framework for Graph-Structured Sparsity](http://people.csail.mit.edu/ludwigs/papers/icml15_graphsparsity.pdf)  
 > Chinmay Hegde, Piotr Indyk, Ludwig Schmidt  
