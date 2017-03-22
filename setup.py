@@ -22,7 +22,7 @@ class get_pybind_include(object):
 ext_modules = [
     Extension(
         'pcst_fast',
-        ['src/pcst_fast_pybind.cc'],
+        ['src/pcst_fast_pybind.cc', 'src/pcst_fast.cc'],
         include_dirs=[
             # Path to pybind11 headers
             get_pybind_include(),
@@ -31,7 +31,6 @@ ext_modules = [
         language='c++'
     ),
 ]
-
 
 # As of Python 3.6, CCompiler has a `has_flag` method.
 # cf http://bugs.python.org/issue26689
@@ -91,6 +90,7 @@ class BuildExt(build_ext):
 setup(
     name='pcst_fast',
     packages=['pcst_fast'],
+    package_dir={'pcst_fast': 'src'},
     version='1.0.0',
     url='https://github.com/fraenkel-lab/pcst_fast',
     license='GNU General Public License',
