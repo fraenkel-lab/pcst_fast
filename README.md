@@ -42,3 +42,14 @@ The parameters are:
 The output variables are:
 * `vertices`: the vertices in the solution as a 1D int64 array.
 * `edges`: the edges in the output as a 1D int64 array. The list contains indices into the list of edges passed into the function.
+
+Performance
+-----------
+
+The following paper contains many results on standard PCST benchmark instances:
+
+> [A Fast, Adaptive Variant of the Goemans-Williamson Scheme for the Prize-Collecting Steiner Tree Problem](http://people.csail.mit.edu/ludwigs/papers/dimacs14_fastpcst.pdf)  
+> Chinmay Hegde, Piotr Indyk, Ludwig Schmidt  
+> Workshop of the 11th DIMACS Implementation Challenge: Steiner Tree Problems, 2014
+
+On instances with up to 350,000 edges, the algorithm typically runs in under 2 seconds on a standard laptop computer from 2010.
