@@ -5,6 +5,8 @@ compiler:
 os:
   - linux
   - osx
+dist: trusty
+
 
 script: "make pcst_fast_test && ./pcst_fast_test"
 
