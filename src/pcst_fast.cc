@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <limits>
+#include <stdexcept>
 #include <vector>
 
 using cluster_approx::PCSTFast;
