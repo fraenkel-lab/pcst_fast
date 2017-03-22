@@ -2,8 +2,7 @@
 #
 # This makefile is based on http://make.paulandlesley.org/autodep.html .
 
-CXX = clang++
-CXXFLAGS = -std=c++11 -Wall -Wextra -O3 -fPIC
+CXXFLAGS = -std=c++11 -Wall -Wextra -O3 -fPIC -pthread
 #CXXFLAGS = -std=c++11 -Wall -Wextra -g -fPIC
 GTESTDIR = external/googletest/googletest
 
