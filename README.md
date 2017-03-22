@@ -1,4 +1,4 @@
-pcsf_fast
+pcst_fast
 ==============
 
 A library for solving the **prize-collecting Steiner forest (PCSF)** problem on graphs.
