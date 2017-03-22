@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/fraenkel-lab/galaxy-neurolincs.svg)](https://travis-ci.org/fraenkel-lab/pcst_fast)
+[![Build Status](https://api.travis-ci.org/fraenkel-lab/pcst_fast.svg)](https://travis-ci.org/fraenkel-lab/pcst_fast)
 
 pcst_fast
 ==============
