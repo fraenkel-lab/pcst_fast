@@ -2,8 +2,9 @@ language: cpp
 compiler:
   - gcc
   - clang
-os: linux
-dist: trusty
+os:
+  - linux
+  - osx
 
 script: "make pcst_fast_test && ./pcst_fast_test"
 
