@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/fraenkel-lab/galaxy-neurolincs.svg)](https://travis-ci.org/fraenkel-lab/pcst_fast)
+
 pcst_fast
 ==============
 
@@ -6,8 +8,8 @@ The underlying algorithm is based on the classical Goemans-Williamson approximat
 Our variant provably runs in nearly-linear time and has a factor-2 approximation guarantee.
 The following paper contains details about the algorithm:
 
-> [A Nearly-Linear Time Framework for Graph-Structured Sparsity](http://people.csail.mit.edu/ludwigs/papers/icml15_graphsparsity.pdf)  
-> Chinmay Hegde, Piotr Indyk, Ludwig Schmidt  
+> [A Nearly-Linear Time Framework for Graph-Structured Sparsity](http://people.csail.mit.edu/ludwigs/papers/icml15_graphsparsity.pdf)
+> Chinmay Hegde, Piotr Indyk, Ludwig Schmidt
 > ICML 2015
 
 Installation
@@ -29,7 +31,7 @@ Usage
 The `pcst_fast` package contains the following function:
 
     vertices, edges = pcst_fast(edges, prizes, costs, root, num_clusters, pruning, verbosity_level)
-    
+
 The parameters are:
 * `edges`: a 2D int64 array. Each row (of length 2) specifies an undirected edge in the input graph. The nodes are labeled 0 to n-1, where n is the number of nodes.
 * `prizes`: the node prizes as a 1D float64 array.
@@ -48,8 +50,8 @@ Performance
 
 The following paper contains many results on standard PCST benchmark instances:
 
-> [A Fast, Adaptive Variant of the Goemans-Williamson Scheme for the Prize-Collecting Steiner Tree Problem](http://people.csail.mit.edu/ludwigs/papers/dimacs14_fastpcst.pdf)  
-> Chinmay Hegde, Piotr Indyk, Ludwig Schmidt  
+> [A Fast, Adaptive Variant of the Goemans-Williamson Scheme for the Prize-Collecting Steiner Tree Problem](http://people.csail.mit.edu/ludwigs/papers/dimacs14_fastpcst.pdf)
+> Chinmay Hegde, Piotr Indyk, Ludwig Schmidt
 > Workshop of the 11th DIMACS Implementation Challenge: Steiner Tree Problems, 2014
 
 On instances with up to 350,000 edges, the algorithm typically runs in under 2 seconds on a standard laptop computer from 2010.
