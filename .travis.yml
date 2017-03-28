@@ -7,7 +7,6 @@ os:
   - osx
 dist: trusty
 
-
 script: "make pcst_fast_test && ./pcst_fast_test"
 
 notifications:

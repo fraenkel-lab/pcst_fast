@@ -91,7 +91,7 @@ setup(
     name='pcst_fast',
     packages=['pcst_fast'],
     package_dir={'pcst_fast': 'src'},
-    version='1.0.0',
+    version='1.0.2',
     url='https://github.com/fraenkel-lab/pcst_fast',
     license='GNU General Public License',
     author='ludwigschmidt',
