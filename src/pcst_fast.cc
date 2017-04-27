@@ -57,7 +57,7 @@ PCSTFast::PCSTFast(const std::vector<std::pair<int, int> >& edges_,
       target_num_active_clusters(target_num_active_clusters_),
       pruning(pruning_), verbosity_level(verbosity_level_),
       output_function(output_function_) {
-    
+
     edge_parts.resize(2 * edges.size());
     node_deleted.resize(prizes.size(), false);
 
@@ -68,7 +68,7 @@ PCSTFast::PCSTFast(const std::vector<std::pair<int, int> >& edges_,
 
     current_time = 0.0;
     // TODO: set to min input value / 2.0?
-    eps = 1e-10;
+    eps = 1e-6;
 
     for (int ii = 0; ii < static_cast<int>(prizes.size()); ++ii) {
       if (prizes[ii] < 0.0) {
@@ -97,7 +97,7 @@ PCSTFast::PCSTFast(const std::vector<std::pair<int, int> >& edges_,
         clusters_deactivation.insert(prizes[ii], ii);
       }
     }
-  
+
   for (int ii = 0; ii < static_cast<int>(edges.size()); ++ii) {
     int uu = edges[ii].first;
     int vv = edges[ii].second;
@@ -339,11 +339,11 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
     //////////////////////////////////////////
     if (verbosity_level >= 2) {
       snprintf(output_buffer, kOutputBufferSize,
-          "Next edge event: time %lf, cluster %d, part %d\n",
+          "Next edge event: time %e, cluster %d, part %d\n",
           next_edge_time, next_edge_cluster_index, next_edge_part_index);
       output_function(output_buffer);
       snprintf(output_buffer, kOutputBufferSize,
-          "Next cluster event: time %lf, cluster %d\n",
+          "Next cluster event: time %e, cluster %d\n",
           next_cluster_time, next_cluster_index);
       output_function(output_buffer);
     }
@@ -351,7 +351,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
 
     if (next_edge_time < next_cluster_time) {
       stats.total_num_edge_events += 1;
-      
+
       current_time = next_edge_time;
       remove_next_edge_event(next_edge_cluster_index);
 
@@ -390,7 +390,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
                            &sum_other_edge_part,
                            &other_finished_moat_sum,
                            &other_cluster_index);
-      
+
       double remainder = current_edge_cost
                          - sum_current_edge_part - sum_other_edge_part;
 
@@ -402,14 +402,14 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
       //////////////////////////////////////////
       if (verbosity_level >= 2) {
         snprintf(output_buffer, kOutputBufferSize,
-            "Edge event at time %lf, current edge part %d (cluster %d), "
+            "Edge event at time %e, current edge part %d (cluster %d), "
             "other edge part %d (cluster %d)\n",
             current_time, next_edge_part_index, current_cluster_index,
             other_edge_part_index, other_cluster_index);
         output_function(output_buffer);
         snprintf(output_buffer, kOutputBufferSize,
-            "Sum current part %lf, other part %lf, total length %lf, "
-            "remainder %lf\n",
+            "Sum current part %e, other part %e, total length %e, "
+            "remainder %e\n",
             sum_current_edge_part, sum_other_edge_part, current_edge_cost,
             remainder);
         output_function(output_buffer);
@@ -546,7 +546,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
       } else if (other_cluster.active) {
         stats.total_num_edge_growth_events += 1;
         stats.num_active_active_edge_growth_events += 1;
-        
+
         double next_event_time = current_time + remainder / 2.0;
         next_edge_part.next_event_val = sum_current_edge_part + remainder / 2.0;
         if (!current_cluster.edge_parts.is_empty()) {
@@ -572,7 +572,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
         //////////////////////////////////////////
         if (verbosity_level >= 2) {
           snprintf(output_buffer, kOutputBufferSize,
-              "Added new event at time %lf\n", next_event_time);
+              "Added new event at time %e\n", next_event_time);
           output_function(output_buffer);
         }
         //////////////////////////////////////////
@@ -592,7 +592,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
         int tmp_index = -1;
         current_cluster.edge_parts.get_min(&tmp_val, &tmp_index);
         clusters_next_edge_event.insert(tmp_val, current_cluster_index);
-        
+
         other_cluster.edge_parts.decrease_key(
             other_edge_part.heap_node,
             other_cluster.active_end_time + other_edge_part.next_event_val
@@ -603,7 +603,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
         //////////////////////////////////////////
         if (verbosity_level >= 2) {
           snprintf(output_buffer, kOutputBufferSize,
-              "Added new event at time %lf and and event for inactive edge "
+              "Added new event at time %e and and event for inactive edge "
               "part\n", next_event_time);
           output_function(output_buffer);
         }
@@ -616,7 +616,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
 
       current_time = next_cluster_time;
       remove_next_cluster_event();
-      
+
       Cluster& cur_cluster = clusters[next_cluster_index];
       cur_cluster.active = false;
       cur_cluster.active_end_time = current_time;
@@ -630,7 +630,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
       //////////////////////////////////////////
       if (verbosity_level >= 2) {
         snprintf(output_buffer, kOutputBufferSize,
-            "Cluster deactivation: cluster %d at time %lf (moat size %lf)\n",
+            "Cluster deactivation: cluster %d at time %e (moat size %e)\n",
             next_cluster_index, current_time, cur_cluster.moat);
         output_function(output_buffer);
       }
@@ -641,7 +641,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
   //////////////////////////////////////////
   if (verbosity_level >= 1) {
     snprintf(output_buffer, kOutputBufferSize,
-        "Finished GW clustering: final event time %lf, number of edge events "
+        "Finished GW clustering: final event time %e, number of edge events "
         "%lld\n", current_time, stats.total_num_edge_events);
     output_function(output_buffer);
   }
@@ -828,7 +828,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
     }
 
     for (int ii = 0; ii < static_cast<int>(final_components.size()); ++ii) {
-      
+
       //////////////////////////////////////////
       if (verbosity_level >= 2) {
         snprintf(output_buffer, kOutputBufferSize,
@@ -837,7 +837,7 @@ bool PCSTFast::run(std::vector<int>* result_nodes,
         output_function(output_buffer);
       }
       //////////////////////////////////////////
-      
+
       if (ii == root_component_index) {
 
         //////////////////////////////////////////
@@ -929,7 +929,7 @@ void PCSTFast::strong_pruning_from(int start_node_index,
   stack.resize(0);
   stack.push_back(make_pair(true, start_node_index));
   strong_pruning_parent[start_node_index] = make_pair(-1, 0.0);
-  
+
   while (!stack.empty()) {
     bool begin = stack.back().first;
     int cur_node_index = stack.back().second;
@@ -958,7 +958,7 @@ void PCSTFast::strong_pruning_from(int start_node_index,
         if (next_node_index == strong_pruning_parent[cur_node_index].first) {
           continue;
         }
-        
+
         double next_payoff = strong_pruning_payoff[next_node_index] - next_cost;
         if (next_payoff <= 0.0) {
           if (mark_as_deleted) {
@@ -967,12 +967,12 @@ void PCSTFast::strong_pruning_from(int start_node_index,
             if (verbosity_level >= 2) {
               snprintf(output_buffer, kOutputBufferSize,
                   "Subtree starting at %d has a nonpositive contribution of "
-                  "%lf, pruning (good side: %d)\n", next_node_index,
+                  "%e, pruning (good side: %d)\n", next_node_index,
                   next_payoff,  cur_node_index);
               output_function(output_buffer);
             }
             //////////////////////////////////////////
-            
+
             mark_nodes_as_deleted(next_node_index, cur_node_index);
           }
         } else {

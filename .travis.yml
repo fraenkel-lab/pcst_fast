@@ -1,17 +1,23 @@
-language: cpp
-compiler:
-  - gcc
-  - clang
-os:
-  - linux
-  - osx
-dist: trusty
+matrix:
+  include:
+    - sudo: required
+      services:
+        - docker
+    - os: osx
 
-script: "make pcst_fast_test && ./pcst_fast_test"
+script:
+  - pip install git+https://github.com/joerick/cibuildwheel@c3565d5025566dcf4b795eef8d40f38a12872151
+  - cibuildwheel --output-dir wheelhouse
+  - |
+    if [[ $TRAVIS_TAG ]]; then
+      python -m pip install twine
+      python -m twine upload wheelhouse/pcst_fast-*.whl
+    fi
 
-notifications:
-  recipients:
-    - ludwigschmidt2@gmail.com
-  email:
-    on_success: never
-    on_failure: change
+env:
+  global:
+    - CIBW_BEFORE_BUILD="{pip} install pybind11"
+    - CIBW_SKIP=cp26-*
+    # - CIBW_TEST_COMMAND="make pcst_fast_test && ./pcst_fast_test"
+    - TWINE_USERNAME=zfrenchee
+      # Note: TWINE_PASSWORD is set in Travis settings
