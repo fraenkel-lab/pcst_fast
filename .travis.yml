@@ -6,7 +6,7 @@ matrix:
     - os: osx
 
 script:
-  - pip install git+https://github.com/joerick/cibuildwheel@c3565d5025566dcf4b795eef8d40f38a12872151
+  - pip install cibuildwheel==0.6.0
   - cibuildwheel --output-dir wheelhouse
   - |
     if [[ $TRAVIS_TAG ]]; then
