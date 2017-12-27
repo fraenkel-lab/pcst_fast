@@ -17,21 +17,21 @@ Installation
 
 - **Option 1: pip**
 
-	pip install pcst_fast
+		pip install pcst_fast
 
-This may not work for some versions of python on some operating systems.
+	This may not work for some versions of python on some operating systems.
 
 - **Option 2: manual**
 
-The core C++ library has no dependencies besides a basic build system for C++11.
-Both g++ and clang are currently supported.
-The Python wrapper requires a functioning Python build system.
+	The core C++ library has no dependencies besides a basic build system for C++11.
+	Both g++ and clang are currently supported.
+	The Python wrapper requires a functioning Python build system.
 
-Clone the repository and compile the python wrapper with the supplied makefile:
+	Clone the repository and compile the python wrapper with the supplied makefile:
 
-    make pcst_fast_py
+	    make pcst_fast_py
 
-You can then import the package via `import pcst_fast`.
+	You can then import the package via `import pcst_fast`.
 
 Usage
 -----
