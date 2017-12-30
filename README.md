@@ -1,7 +1,7 @@
 [![Build Status](https://api.travis-ci.org/fraenkel-lab/pcst_fast.svg)](https://travis-ci.org/fraenkel-lab/pcst_fast)
 
 pcst_fast
-==============
+=========
 
 A library for solving the **prize-collecting Steiner forest (PCSF)** problem on graphs.
 The underlying algorithm is based on the classical Goemans-Williamson approximation scheme.
