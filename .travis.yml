@@ -5,22 +5,24 @@ matrix:
     - sudo: required
       services:
         - docker
+      env: PIP=pip
     - os: osx
       language: generic
+      env: PIP=pip2
 
 script:
-  - pip2 install cibuildwheel==0.6.0
+  - $PIP install cibuildwheel
   - cibuildwheel --output-dir wheelhouse
   - |
     if [[ $TRAVIS_TAG ]]; then
-      pip2 install twine
+      $PIP install twine
       python -m twine upload wheelhouse/pcst_fast-*.whl
     fi
 
 env:
   global:
-    - CIBW_BEFORE_BUILD="{pip} install pybind11"
-    - CIBW_SKIP=cp26-*
+    - CIBW_BEFORE_BUILD="$PIP install pybind11"
+    # - CIBW_SKIP=cp26-*
     # - CIBW_TEST_COMMAND="make pcst_fast_test && ./pcst_fast_test"
     - TWINE_USERNAME=zfrenchee
       # Note: TWINE_PASSWORD is set in Travis settings
