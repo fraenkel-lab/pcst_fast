@@ -88,7 +88,7 @@ with open("README.md", encoding="utf-8") as f:
     README = f.read()
 
 setup(
-    name='pcst_fast_test_abe',  # TODO: Rename to 'pcst_fast' before merging
+    name='pcst_fast',
     packages=['pcst_fast'],
     package_dir={'pcst_fast': 'src'},
     version='1.0.7',
