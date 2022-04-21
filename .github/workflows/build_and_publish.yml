@@ -9,11 +9,12 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+'
 
 env:
-  CIBW_BEFORE_BUILD_MACOS: "pip install pybind11"
-  CIBW_BEFORE_BUILD_WINDOWS: "pip install pybind11"
-  CIBW_BEFORE_BUILD_LINUX: "pip install pybind11"
+  CIBW_BUILD: "pp3*"
+  CIBW_BEFORE_BUILD: "pip install pybind11"
+  CIBW_BEFORE_TEST_MACOS: "pip cache remove numpy; brew install openblas; OPENBLAS=\"$(brew --prefix openblas)\" pip install --no-cache-dir -U pip numpy"
   CIBW_TEST_REQUIRES: "pytest numpy"
   CIBW_TEST_COMMAND: "pytest {project}/src"
+  CIBW_BUILD_VERBOSITY: 1
 
 jobs:
   build_wheels:
