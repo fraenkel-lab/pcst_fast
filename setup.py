@@ -82,8 +82,13 @@ class BuildExt(build_ext):
 
         build_ext.build_extensions(self)
 
+
+# Read the contents of the README file
+with open("README.md", encoding="utf-8") as f:
+    README = f.read()
+
 setup(
-    name='pcst_fast',
+    name='pcst_fast_test_abe',  # TODO: Rename to 'pcst_fast' before merging
     packages=['pcst_fast'],
     package_dir={'pcst_fast': 'src'},
     version='1.0.7',
@@ -91,7 +96,9 @@ setup(
     license='GNU General Public License',
     author='ludwigschmidt',
     author_email='alex@lenail.org',
-    description='',
+    description='A fast implementation of the Goemans-Williamson scheme for the prize-collecting Steiner tree / forest problem.',
+    long_description=README,
+    long_description_content_type="text/markdown",
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.1.0'],
     setup_requires=['pybind11>=2.1.0'],
