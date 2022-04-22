@@ -1,0 +1,65 @@
+name: Build and publish
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+env:
+  CIBW_BEFORE_BUILD: "pip install pybind11"
+  CIBW_BEFORE_TEST_MACOS: "pip cache remove numpy; brew install openblas; OPENBLAS=\"$(brew --prefix openblas)\" pip install --no-cache-dir -U pip numpy"
+  CIBW_TEST_REQUIRES: "pytest numpy"
+  CIBW_TEST_COMMAND: "pytest {project}/src"
+  CIBW_BUILD_VERBOSITY: 1
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macOS-10.15]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: pypa/cibuildwheel@v2.4.0
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl
+          retention-days: 1
+
+  build_sdist:
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build sdist
+        run: pipx run build --sdist --outdir wheelhouse
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: wheelhouse/*.tar.gz
+          retention-days: 1
+
+  upload_pypi:
+    needs: [build_wheels, build_sdist]
+    name: Upload source distributions and wheels to Pypi
+    runs-on: ubuntu-latest
+    # Upload to PyPI on every tag
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: wheelhouse
+
+      - uses: pypa/gh-action-pypi-publish@v1.5.0
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_PASSWORD }}
+          packages_dir: wheelhouse/
