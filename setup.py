@@ -91,7 +91,7 @@ setup(
     name='pcst_fast',
     packages=['pcst_fast'],
     package_dir={'pcst_fast': 'src'},
-    version='1.0.7',
+    use_scm_version=True,
     url='https://github.com/fraenkel-lab/pcst_fast',
     license='GNU General Public License',
     author='ludwigschmidt',
@@ -101,7 +101,7 @@ setup(
     long_description_content_type="text/markdown",
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.1.0'],
-    setup_requires=['pybind11>=2.1.0'],
+    setup_requires=['pybind11>=2.1.0', 'setuptools_scm'],
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
 )
