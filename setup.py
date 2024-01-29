@@ -100,6 +100,7 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
     ext_modules=ext_modules,
+    python_requires=">=3.8",
     install_requires=['pybind11>=2.1.0'],
     setup_requires=['pybind11>=2.1.0', 'setuptools_scm'],
     cmdclass={'build_ext': BuildExt},
