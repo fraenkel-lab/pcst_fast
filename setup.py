@@ -101,7 +101,7 @@ setup(
     long_description_content_type="text/markdown",
     ext_modules=ext_modules,
     python_requires=">=3.8",
-    install_requires=['pybind11>=2.1.0'],
+    install_requires=['numpy<2'],
     setup_requires=['pybind11>=2.1.0', 'setuptools_scm'],
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
