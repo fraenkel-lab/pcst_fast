@@ -28,13 +28,6 @@ jobs:
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
-        env:
-          CIBW_BEFORE_BUILD: "pip install pybind11"
-          CIBW_BEFORE_TEST_MACOS: "pip cache remove numpy; brew install openblas; OPENBLAS=\"$(brew --prefix openblas)\" pip install --no-cache-dir -U pip numpy"
-          CIBW_TEST_REQUIRES: "pytest numpy"
-          CIBW_TEST_SKIP: "*-musllinux_* *-manylinux_i686 pp39-manylinux_x86_64 pp*-win_amd64 pp*-macosx_x86_64"
-          CIBW_TEST_COMMAND: "pytest {project}/src"
-          CIBW_BUILD_VERBOSITY: 1
 
       - uses: actions/upload-artifact@v4
         with:
