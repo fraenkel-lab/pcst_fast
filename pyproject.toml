@@ -18,7 +18,7 @@ homepage = "https://github.com/fraenkel-lab/pcst_fast"
 [tool.cibuildwheel]
 skip = "pp39* pp*-macosx*"
 test-requires = "pytest numpy"
-test-skip = "*-musllinux_* *-manylinux_i686 pp39-manylinux_x86_64 pp*-win_amd64 pp*-macosx_x86_64 cp313-win32"
+test-skip = "*-musllinux_* *-manylinux_i686 pp39-manylinux_x86_64 pp*-win_amd64 pp*-macosx_x86_64 cp313-win*"
 test-command = "pytest {project}/src"
 build-verbosity = 1
 
