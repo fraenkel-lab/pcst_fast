@@ -16,6 +16,7 @@ homepage = "https://github.com/fraenkel-lab/pcst_fast"
 [tool.setuptools_scm]
 
 [tool.cibuildwheel]
+skip = "pp*-macosx_arm64"
 test-requires = "pytest numpy"
 test-skip = "*-musllinux_* *-manylinux_i686 pp39-manylinux_x86_64 pp*-win_amd64 pp*-macosx_x86_64"
 test-command = "pytest {project}/src"
