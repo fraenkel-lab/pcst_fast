@@ -3,9 +3,10 @@ name = "pcst_fast"
 dynamic = ["version"]
 description = "A fast implementation of the Goemans-Williamson scheme for the prize-collecting Steiner tree / forest problem."
 readme = "README.md"
-license = {text = "GNU General Public License"}
+license = {text = "MIT"}
 authors = [
-    {name = "ludwigschmidt", email = "alex@lenail.org"},
+    {name = "ludwigschmidt"},
+    {name = "alexlenail"},
 ]
 requires-python = ">=3.9"
 dependencies = ["numpy<2"]
